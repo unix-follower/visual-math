@@ -1,0 +1,62 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL foundation"
+  description="First Angular WebGL route establishing shared WebGL2 support detection, a guarded context bootstrap, and a clear-pass renderer inside the existing workbench shell."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="WebGL clear controls"
+      headingId="webgl-foundation-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="webgl-foundation-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL foundation viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a foundation clear pass"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This first Phase 3 route stays intentionally small: it proves the Angular workbench can
+      acquire a WebGL2 context, serialize state, clear the viewport, and tear down cleanly before
+      adding shader-program complexity.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

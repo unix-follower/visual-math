@@ -1,0 +1,10 @@
+.control-section {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.control-section h3 {
+  margin: 0;
+  color: #13213b;
+  font-size: 1rem;
+}

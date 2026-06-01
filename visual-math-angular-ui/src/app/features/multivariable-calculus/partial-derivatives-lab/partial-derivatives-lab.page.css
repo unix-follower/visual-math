@@ -1,0 +1,24 @@
+.controls,
+.viewport,
+.notes {
+  display: grid;
+  gap: 1rem;
+}
+
+.viewport__canvas {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 1.25rem;
+  border: 1px solid rgb(19 33 59 / 0.12);
+  background: #fff;
+}
+
+.notes p {
+  margin: 0;
+  color: #34405d;
+}
+
+.notes {
+  color: #34405d;
+  line-height: 1.6;
+}

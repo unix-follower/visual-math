@@ -1,0 +1,26 @@
+.preset-grid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.preset-grid button {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
+  min-height: 3rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgb(19 33 59 / 0.14);
+  border-radius: 1rem;
+  color: #13213b;
+  background: #fffef9;
+}
+
+.preset-grid button span {
+  color: #34405d;
+}
+
+.preset-grid button:hover,
+.preset-grid button:focus-visible {
+  border-color: rgb(19 33 59 / 0.28);
+  background: #ffffff;
+}

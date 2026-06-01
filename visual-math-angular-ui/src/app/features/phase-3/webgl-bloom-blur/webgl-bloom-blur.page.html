@@ -1,0 +1,62 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL bloom blur"
+  description="A WebGL route validating an offscreen emissive pass followed by a blur-aware composite pass inside the Angular workbench shell."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Pass controls"
+      headingId="webgl-bloom-blur-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="webgl-bloom-blur-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL bloom blur viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a blurred bloom composite"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route extends the Phase 3 multi-pass surface from simple compositing into blur-shaped
+      post-processing. The first pass stores emissive geometry offscreen, then the second pass
+      samples neighboring texels to spread and lift the bloom contribution.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

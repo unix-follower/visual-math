@@ -1,0 +1,101 @@
+<section class="hero-card">
+  <div class="hero-card__copy">
+    <p class="hero-card__eyebrow">Phase 1 complete, Phase 2 complete, Phase 3 started</p>
+    <h2>Canvas breadth and WebGPU depth are complete; WebGL now has a real route set.</h2>
+    <p>
+      The Angular app now holds the completed Phase 1 Canvas reference slices, the completed Phase 2
+      WebGPU catalog, and the first Phase 3 WebGL routes, so later Next.js, Vulkan, and OpenGL
+      phases can follow the same workbench contract.
+    </p>
+  </div>
+
+  <div class="hero-card__actions">
+    <a class="hero-card__primary" routerLink="/phase-3">Open Phase 3 Index</a>
+    <p>
+      The Angular shell now spans mature Canvas slices, a complete WebGPU index, and a growing Phase
+      3 WebGL catalog.
+    </p>
+  </div>
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 3 overview">
+  @for (group of phase3ConceptGroups; track group.label) {
+    <article class="detail-card detail-card--phase2">
+      <p class="detail-card__eyebrow">Phase 3 concept</p>
+      <h3>{{ group.label }}</h3>
+      <p class="detail-card__summary">{{ group.summary }}</p>
+      <ul>
+        @for (route of group.routes; track route) {
+          <li>{{ route }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Starter tools">
+  @for (tool of starterTools; track tool.path) {
+    <article class="detail-card">
+      <p class="detail-card__eyebrow">Starter tool</p>
+      <h3>{{ tool.label }}</h3>
+      <p>{{ tool.description }}</p>
+      <a class="hero-card__primary" [routerLink]="tool.path">Open {{ tool.label }}</a>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 2 overview">
+  @for (group of phase2ConceptGroups; track group.label) {
+    <article class="detail-card detail-card--phase2">
+      <p class="detail-card__eyebrow">Phase 2 concept</p>
+      <h3>{{ group.label }}</h3>
+      <p class="detail-card__summary">{{ group.summary }}</p>
+      <ul>
+        @for (route of group.routes; track route) {
+          <li>{{ route }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>
+
+<section class="section-grid" aria-label="Delivery priorities">
+  @for (group of frequencyGroups; track group.label) {
+    <article class="priority-card">
+      <p class="priority-card__eyebrow">{{ group.label }}</p>
+      <p class="priority-card__cadence">{{ group.cadence }}</p>
+      <ul>
+        @for (domain of group.domains; track domain) {
+          <li>{{ domain }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column">
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Workbench requirements</p>
+    <h3>Shared capabilities across the Angular reference app</h3>
+    <ul>
+      @for (capability of workbenchCapabilities; track capability) {
+        <li>{{ capability }}</li>
+      }
+    </ul>
+  </article>
+
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Current handoff</p>
+    <h3>Concrete next steps</h3>
+    <ol>
+      <li>Keep the completed Phase 1 and Phase 2 Angular slices stable and fully validated.</li>
+      <li>
+        Grow Phase 3 from the current foundation-plus-geometry baseline into uniform, indexed, and
+        texture-backed WebGL routes.
+      </li>
+      <li>
+        Reuse the same scene contracts as later Next.js and native renderer phases come online.
+      </li>
+    </ol>
+  </article>
+</section>

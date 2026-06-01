@@ -1,0 +1,65 @@
+.controls,
+.viewport,
+.notes {
+  display: grid;
+  gap: 1rem;
+}
+
+.controls label {
+  display: grid;
+  gap: 0.5rem;
+  color: #34405d;
+}
+
+.controls__toggle {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.controls__preset-grid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.controls__preset-grid button {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
+  min-height: 3rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgb(19 33 59 / 0.14);
+  border-radius: 1rem;
+  color: #13213b;
+  background: #fffef9;
+}
+
+.controls__preset-grid button span {
+  color: #34405d;
+}
+
+.viewport__surface {
+  border-radius: 1.25rem;
+  outline: none;
+}
+
+.viewport__surface:focus-visible {
+  box-shadow: 0 0 0 4px rgb(31 94 140 / 0.22);
+}
+
+.viewport__canvas {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 1.25rem;
+  border: 1px solid rgb(19 33 59 / 0.12);
+  background: #fff;
+}
+
+.notes p {
+  margin: 0;
+  color: #34405d;
+}
+
+.notes {
+  color: #34405d;
+  line-height: 1.6;
+}

@@ -1,0 +1,8 @@
+<div class="metric-grid" aria-live="polite">
+  @for (metric of metrics(); track metric.label) {
+    <article>
+      <p>{{ metric.label }}</p>
+      <strong>{{ metric.value }}</strong>
+    </article>
+  }
+</div>

@@ -1,0 +1,64 @@
+<section class="hero-card">
+  <div class="hero-card__copy">
+    <p class="hero-card__eyebrow">Phase 3 index</p>
+    <h2>Angular WebGL routes are now organized by capability, not just by handoff status.</h2>
+    <p>
+      Phase 3 begins with the same workbench shell used in earlier Angular slices, but now tracks
+      the WebGL progression from guarded startup into shader-linked geometry rendering.
+    </p>
+  </div>
+
+  <div class="hero-card__actions">
+    <a class="hero-card__primary" routerLink="/phase-3/webgl-gradient-triangle"
+      >Open WebGL Gradient Triangle</a
+    >
+    <a class="hero-card__secondary" routerLink="/">Back to Overview</a>
+  </div>
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 3 concepts">
+  @for (section of conceptSections; track section.label) {
+    <article class="detail-card">
+      <p class="detail-card__eyebrow">Concept group</p>
+      <h3>{{ section.label }}</h3>
+      <p class="detail-card__summary">{{ section.summary }}</p>
+      <ul>
+        @for (route of section.routes; track route) {
+          <li>{{ route }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 3 routes">
+  @for (route of routeCards; track route.path) {
+    <article class="detail-card detail-card--route">
+      <p class="detail-card__eyebrow">{{ route.concept }}</p>
+      <h3>{{ route.label }}</h3>
+      <p class="detail-card__summary">{{ route.description }}</p>
+      <a class="hero-card__primary" [routerLink]="route.path">Open {{ route.label }}</a>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 3 progression">
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Progression notes</p>
+    <h3>What Phase 3 now covers</h3>
+    <ul>
+      @for (note of progressionNotes; track note) {
+        <li>{{ note }}</li>
+      }
+    </ul>
+  </article>
+
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Route count</p>
+    <h3>{{ routeCount }} WebGL routes live</h3>
+    <p class="detail-card__summary">
+      The Angular WebGL surface now spans guarded runtime initialization, clear-pass rendering,
+      shader compilation, program linking, attribute setup, and geometry submission.
+    </p>
+  </article>
+</section>

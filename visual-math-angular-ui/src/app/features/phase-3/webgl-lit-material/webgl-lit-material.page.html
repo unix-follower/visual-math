@@ -1,0 +1,62 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL lit material"
+  description="A WebGL route that shades a procedural orb with controllable light direction, metalness, roughness, and rim response inside a single pass."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Material controls"
+      headingId="webgl-lit-material-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="webgl-lit-material-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL lit material viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a lit material orb"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route introduces lighting and material response to Phase 3. Instead of emphasizing only
+      geometry or post-process relays, the fragment shader derives a normal from the orb surface and
+      mixes diffuse, metallic, and rim-lit terms in a single pass.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

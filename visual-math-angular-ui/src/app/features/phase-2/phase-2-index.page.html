@@ -1,0 +1,66 @@
+<section class="hero-card">
+  <div class="hero-card__copy">
+    <p class="hero-card__eyebrow">Phase 2 index</p>
+    <h2>Angular WebGPU routes are now organized by GPU concept, not just route name.</h2>
+    <p>
+      Phase 2 keeps expanding inside the same Angular workbench shell. This index groups the WebGPU
+      routes by the GPU workflow they introduce so the progression from basic rendering to indirect,
+      compute, and multipass techniques stays visible.
+    </p>
+  </div>
+
+  <div class="hero-card__actions">
+    <a class="hero-card__primary" routerLink="/phase-2/webgpu-indirect-indexed-polygon"
+      >Open WebGPU Indirect Indexed Polygon</a
+    >
+    <a class="hero-card__secondary" routerLink="/">Back to Overview</a>
+  </div>
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 2 concepts">
+  @for (section of conceptSections; track section.label) {
+    <article class="detail-card">
+      <p class="detail-card__eyebrow">Concept group</p>
+      <h3>{{ section.label }}</h3>
+      <p class="detail-card__summary">{{ section.summary }}</p>
+      <ul>
+        @for (route of section.routes; track route) {
+          <li>{{ route }}</li>
+        }
+      </ul>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--three-column" aria-label="Phase 2 routes">
+  @for (route of routeCards; track route.path) {
+    <article class="detail-card detail-card--route">
+      <p class="detail-card__eyebrow">{{ route.concept }}</p>
+      <h3>{{ route.label }}</h3>
+      <p class="detail-card__summary">{{ route.description }}</p>
+      <a class="hero-card__primary" [routerLink]="route.path">Open {{ route.label }}</a>
+    </article>
+  }
+</section>
+
+<section class="section-grid section-grid--two-column" aria-label="Phase 2 progression">
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Progression notes</p>
+    <h3>What Phase 2 now covers</h3>
+    <ul>
+      @for (note of progressionNotes; track note) {
+        <li>{{ note }}</li>
+      }
+    </ul>
+  </article>
+
+  <article class="detail-card">
+    <p class="detail-card__eyebrow">Route count</p>
+    <h3>{{ routeCount }} WebGPU routes live</h3>
+    <p class="detail-card__summary">
+      The Angular WebGPU surface now spans foundations, geometry reuse, GPU-driven motion,
+      buffer-backed data workflows, textures, multipass composition, indirect submission, and
+      indirect indexed submission.
+    </p>
+  </article>
+</section>

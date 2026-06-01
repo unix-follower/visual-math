@@ -1,0 +1,71 @@
+<app-math-workbench
+  eyebrow="Trigonometry"
+  title="Unit circle explorer"
+  description="Phase 1 trigonometry slice linking angle, unit-circle coordinates, projections, and a sine-wave preview on the shared Canvas workbench."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section heading="Angle control" headingId="unit-circle-angle-heading">
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Display options"
+      headingId="unit-circle-display-heading"
+    >
+      @for (control of toggleControls; track control.id) {
+        <app-workbench-toggle-control
+          [label]="control.label"
+          [checked]="toggleValue(control.id)"
+          (valueChanged)="toggleOption(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="unit-circle-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="Unit circle graph viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="Unit circle and sine-wave preview for the selected angle"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This trigonometry slice keeps the same shareable scene, export flow, and keyboard contract as
+      the other Phase 1 tools while connecting circle geometry to sine and cosine values.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

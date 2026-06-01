@@ -1,0 +1,74 @@
+<app-math-workbench
+  eyebrow="Optimization"
+  title="Gradient descent lab"
+  description="Phase 1 domain-specific optimization slice for learning-rate intuition, contour geometry, and iterative descent paths."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Optimizer controls"
+      headingId="gradient-descent-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Display options"
+      headingId="gradient-descent-display-heading"
+    >
+      @for (control of toggleControls; track control.id) {
+        <app-workbench-toggle-control
+          [label]="control.label"
+          [checked]="toggleValue(control.id)"
+          (valueChanged)="toggleOption(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="gradient-descent-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="Gradient descent viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="Quadratic objective with gradient descent path"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This is a deliberately simple convex objective. The point is to see how learning rate,
+      curvature, and step count interact before moving to higher-dimensional optimizers.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

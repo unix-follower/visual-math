@@ -1,0 +1,65 @@
+<app-math-workbench
+  eyebrow="Phase 2"
+  title="WebGPU indirect indexed polygon"
+  description="Thirteenth Angular WebGPU route combining a bound index buffer with drawIndexedIndirect so the final index count lives in GPU indirect arguments instead of a direct method parameter."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Indirect indexed controls"
+      headingId="webgpu-indirect-indexed-polygon-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgpu-indirect-indexed-polygon-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGPU indirect indexed polygon viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGPU canvas showing an indirect indexed polygon draw"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This Phase 2 route keeps the same Angular workbench shell and guarded WebGPU bootstrap flow
+      while moving indexed draw arguments into a dedicated indirect buffer consumed by
+      drawIndexedIndirect.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

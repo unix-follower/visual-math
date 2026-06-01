@@ -1,0 +1,11 @@
+<label class="range-control">
+  <span>{{ label() }}: {{ displayValue() }}</span>
+  <input
+    type="range"
+    [min]="min()"
+    [max]="max()"
+    [step]="step()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+</label>

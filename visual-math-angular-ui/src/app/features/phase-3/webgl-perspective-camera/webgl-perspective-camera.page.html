@@ -1,0 +1,64 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL perspective camera"
+  description="A WebGL route that keeps layered geometry fixed in 3D space while a perspective camera and lens controls reveal depth and parallax."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Camera controls"
+      headingId="webgl-perspective-camera-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgl-perspective-camera-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL perspective camera viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a perspective camera over layered panels"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route introduces depth cues to Phase 3. The panels stay fixed in model space while a
+      perspective camera, lens, and distance change how their z separation projects onto the screen.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

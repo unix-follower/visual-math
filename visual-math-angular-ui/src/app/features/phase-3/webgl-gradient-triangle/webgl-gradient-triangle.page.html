@@ -1,0 +1,65 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL gradient triangle"
+  description="First Angular WebGL geometry route validating shader compilation, program linking, vertex uploads, and triangle submission inside the shared workbench shell."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Triangle controls"
+      headingId="webgl-gradient-triangle-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgl-gradient-triangle-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL gradient triangle viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a gradient triangle"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route is the first Phase 3 geometry slice. It keeps the workbench interactions from
+      earlier Angular pages, but the renderer now compiles shaders, links a program, uploads a
+      vertex buffer, and submits a triangle draw.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

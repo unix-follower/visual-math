@@ -1,0 +1,29 @@
+<div class="shell">
+  <header class="shell__header">
+    <div class="shell__intro">
+      <p class="shell__eyebrow">Phase 1 complete, Phase 2 complete, Phase 3 started</p>
+      <h1>Visual Math Lab</h1>
+      <p class="shell__lede">
+        Angular reference app with a completed Canvas workbench, validated math slices across the
+        Phase 1 domains, a completed WebGPU route set for Phase 2, and a Phase 3 WebGL route set
+        establishing the next renderer layer.
+      </p>
+    </div>
+
+    <nav class="shell__nav" aria-label="Primary">
+      @for (item of navigationItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </header>
+
+  <main class="shell__content">
+    <router-outlet />
+  </main>
+</div>

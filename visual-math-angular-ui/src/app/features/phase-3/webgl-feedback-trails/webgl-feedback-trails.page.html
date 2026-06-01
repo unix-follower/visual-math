@@ -1,0 +1,65 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL feedback trails"
+  description="A WebGL route validating a longer trail chain that relays the same image across the shared ping-pong targets before the final composite."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Trail controls"
+      headingId="webgl-feedback-trails-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgl-feedback-trails-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL feedback trails viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing repeated feedback trails"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route extends the earlier ping-pong slice into a longer relay chain. After the seed pass,
+      the image is bounced repeatedly across the same two offscreen targets so the trail field can
+      build up before the final composite reaches the canvas.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

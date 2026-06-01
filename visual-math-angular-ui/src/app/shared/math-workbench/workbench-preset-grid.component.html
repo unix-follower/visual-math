@@ -1,0 +1,8 @@
+<div class="preset-grid">
+  @for (preset of presets(); track preset.label; let index = $index) {
+    <button type="button" (click)="selectPreset(index)">
+      <strong>{{ preset.label }}</strong>
+      <span>{{ preset.description }}</span>
+    </button>
+  }
+</div>

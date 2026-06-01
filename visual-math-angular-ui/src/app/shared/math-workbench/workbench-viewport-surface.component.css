@@ -1,0 +1,8 @@
+.viewport-surface {
+  border-radius: 1.25rem;
+  outline: none;
+}
+
+.viewport-surface:focus-visible {
+  box-shadow: 0 0 0 4px rgb(31 94 140 / 0.22);
+}

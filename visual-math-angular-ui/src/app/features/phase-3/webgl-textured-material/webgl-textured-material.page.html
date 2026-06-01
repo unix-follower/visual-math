@@ -1,0 +1,65 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL textured material"
+  description="A WebGL route that uploads a procedural albedo texture, derives relief normals from neighboring texels, and shades the result with a primary light plus a softer fill light."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Material controls"
+      headingId="webgl-textured-material-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgl-textured-material-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL textured material viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a textured material surface"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route closes the gap between texture upload and higher-level material work. The uploaded
+      texture no longer only defines visible color; neighboring texel differences also shape the
+      normal field, so relief and lighting change together.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

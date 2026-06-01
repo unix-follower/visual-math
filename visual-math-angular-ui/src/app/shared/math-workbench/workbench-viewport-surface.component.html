@@ -1,0 +1,13 @@
+<div
+  class="viewport-surface"
+  tabindex="0"
+  role="application"
+  [attr.aria-label]="ariaLabel()"
+  (keydown)="onKeydown($event)"
+  (pointerdown)="onPointerEvent($event)"
+  (pointermove)="onPointerEvent($event)"
+  (pointerup)="onPointerEvent($event)"
+  (pointerleave)="onPointerEvent($event)"
+>
+  <ng-content />
+</div>

@@ -1,0 +1,68 @@
+<app-math-workbench
+  eyebrow="Topology"
+  title="Euler characteristic lab"
+  description="Phase 1 rare-math topology slice for genus, boundary components, and classification of orientable surfaces."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section heading="Surface controls" headingId="topology-controls-heading">
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Display options" headingId="topology-display-heading">
+      @for (control of toggleControls; track control.id) {
+        <app-workbench-toggle-control
+          [label]="control.label"
+          [checked]="toggleValue(control.id)"
+          (valueChanged)="toggleOption(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="topology-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="Topology Euler characteristic viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="Stylized orientable surface with holes and boundaries"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      The canvas is a topological sketch, not a geometric embedding. What matters is the number of
+      handles and boundary components, because those control the invariant χ = 2 - 2g - b.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

@@ -1,0 +1,9 @@
+.range-control {
+  display: grid;
+  gap: 0.5rem;
+  color: #34405d;
+}
+
+.range-control input[type="range"] {
+  width: 100%;
+}

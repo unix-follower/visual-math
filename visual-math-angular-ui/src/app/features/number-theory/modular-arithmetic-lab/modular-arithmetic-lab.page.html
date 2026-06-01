@@ -1,0 +1,68 @@
+<app-math-workbench
+  eyebrow="Number Theory"
+  title="Modular arithmetic lab"
+  description="Phase 1 monthly number-theory slice for residue classes, modular addition and multiplication, and invertibility intuition."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section heading="Residue controls" headingId="modular-controls-heading">
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Display options" headingId="modular-display-heading">
+      @for (control of toggleControls; track control.id) {
+        <app-workbench-toggle-control
+          [label]="control.label"
+          [checked]="toggleValue(control.id)"
+          (valueChanged)="toggleOption(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section heading="Presets" headingId="modular-presets-heading">
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="Modular arithmetic viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="Residue ring for modular arithmetic"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      Prime moduli make every non-zero residue a unit. Composite moduli expose zero divisors and
+      shrink the invertible ring.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>

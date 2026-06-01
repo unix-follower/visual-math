@@ -1,0 +1,71 @@
+<section class="workbench">
+  <header class="workbench__header">
+    <div>
+      <p class="workbench__eyebrow">{{ eyebrow() }}</p>
+      <h2>{{ title() }}</h2>
+      <p class="workbench__description">{{ description() }}</p>
+    </div>
+
+    <div class="workbench__header-aside">
+      @if (highlights().length > 0) {
+        <ul class="workbench__highlights" aria-label="Highlights">
+          @for (highlight of highlights(); track highlight) {
+            <li>{{ highlight }}</li>
+          }
+        </ul>
+      }
+
+      @if (actions().length > 0) {
+        <div class="workbench__actions" aria-label="Workbench actions">
+          @for (action of actions(); track action.id) {
+            <button
+              type="button"
+              class="workbench__action-button"
+              (click)="triggerAction(action.id)"
+              [attr.aria-label]="action.description"
+              [title]="action.description"
+            >
+              {{ action.label }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </header>
+
+  <div class="workbench__body">
+    <aside class="workbench__panel">
+      <ng-content select="[workbench-controls]" />
+    </aside>
+
+    <section class="workbench__viewport">
+      <ng-content select="[workbench-viewport]" />
+    </section>
+  </div>
+
+  <footer class="workbench__footer">
+    @if (keyboardShortcuts().length > 0 || statusMessage()) {
+      <section class="workbench__meta" aria-label="Accessibility and status">
+        @if (keyboardShortcuts().length > 0) {
+          <div>
+            <h3>Keyboard shortcuts</h3>
+            <ul class="workbench__shortcuts">
+              @for (shortcut of keyboardShortcuts(); track shortcut.keys) {
+                <li>
+                  <strong>{{ shortcut.keys }}</strong>
+                  <span>{{ shortcut.description }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (statusMessage()) {
+          <p class="workbench__status" aria-live="polite">{{ statusMessage() }}</p>
+        }
+      </section>
+    }
+
+    <ng-content select="[workbench-notes]" />
+  </footer>
+</section>

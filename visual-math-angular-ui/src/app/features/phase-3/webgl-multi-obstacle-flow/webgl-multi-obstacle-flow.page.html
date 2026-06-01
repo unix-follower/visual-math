@@ -1,0 +1,66 @@
+<app-math-workbench
+  eyebrow="Phase 3"
+  title="WebGL multi-obstacle flow"
+  description="A WebGL route that keeps a feedback texture alive across frames while pointer movement steers the dye source and pointer drag moves whichever obstacle is closest."
+  [highlights]="highlights"
+  [actions]="actions"
+  [keyboardShortcuts]="keyboardShortcuts"
+  [statusMessage]="statusMessage()"
+  (actionTriggered)="handleWorkbenchAction($event)"
+>
+  <div workbench-controls class="controls">
+    <app-workbench-control-section
+      heading="Flow controls"
+      headingId="webgl-multi-obstacle-flow-controls-heading"
+    >
+      @for (control of rangeControls; track control.id) {
+        <app-workbench-range-control
+          [label]="control.label"
+          [min]="control.min"
+          [max]="control.max"
+          [step]="control.step"
+          [value]="rangeValue(control.id)"
+          [displayValue]="rangeDisplayValue(control.id)"
+          (valueChanged)="updateRange(control.id, $event)"
+        />
+      }
+    </app-workbench-control-section>
+
+    <app-workbench-control-section
+      heading="Presets"
+      headingId="webgl-multi-obstacle-flow-presets-heading"
+    >
+      <app-workbench-preset-grid
+        [presets]="presets"
+        (presetSelected)="applyPresetByIndex($event)"
+      />
+    </app-workbench-control-section>
+  </div>
+
+  <div workbench-viewport class="viewport">
+    <app-workbench-viewport-surface
+      ariaLabel="WebGL multi-obstacle flow viewport"
+      (keyPressed)="handleViewportKeydown($event)"
+      (pointerInteracted)="handleViewportPointer($event)"
+    >
+      <canvas
+        #canvas
+        class="viewport__canvas"
+        width="720"
+        height="480"
+        aria-label="WebGL canvas showing a multi-obstacle flow field"
+      ></canvas>
+    </app-workbench-viewport-surface>
+
+    <app-workbench-metric-grid [metrics]="metrics()" />
+  </div>
+
+  <div workbench-notes class="notes">
+    <p>
+      This route turns the earlier single-obstacle interaction into a stronger simulation surface.
+      The field now has two blockers, and pointer drag automatically grabs whichever one is closest
+      so the wake pattern can be reshaped in real time.
+    </p>
+    <p>{{ summary() }}</p>
+  </div>
+</app-math-workbench>
